@@ -1,0 +1,84 @@
+name: Update AI News Snapshot
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "data/**"
+  schedule:
+    # 避开整点：GitHub 的 cron 在 0 分最拥堵，整点触发经常被延迟或丢弃
+    - cron: "17 */2 * * *"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 7
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Update data
+        run: pnpm run fetch
+
+      - name: Build web
+        env:
+          GITHUB_PAGES: true
+        run: |
+          cd web
+          pnpm install
+          pnpm run build
+          mkdir -p dist/data
+          cp ../data/latest-24h.json dist/data/
+          cp ../data/latest-7d.json dist/data/
+          cp ../data/source-status.json dist/data/
+
+      - name: Prerender SEO
+        run: |
+          python3 scripts/prerender.py \
+            --dist web/dist \
+            --data data \
+            --site https://comegome.github.io/ai-news-aggregator \
+            --base /ai-news-aggregator/ \
+            --noindex \
+            --canonical https://agigregator.yuzhaizu.com/
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./web/dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: update
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

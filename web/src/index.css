@@ -1,0 +1,113 @@
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('./assets/fonts/roboto-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('./assets/fonts/roboto-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+    U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-surface text-ink dark:bg-surface-dark dark:text-ink-dark;
+    @apply font-sans antialiased;
+  }
+
+  ::selection {
+    @apply bg-primary-container text-primary-strong;
+  }
+
+  input[type='search']::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+  }
+}
+
+@layer components {
+  /* 搜索框：静止时无边框浅灰，聚焦时变白并浮起 —— 全站唯一的阴影 */
+  .search-field {
+    @apply w-full h-10 pl-11 pr-4 rounded-full bg-surface-subtle dark:bg-surface-subtle-dark;
+    @apply text-title text-ink dark:text-ink-dark placeholder:text-ink-muted;
+    @apply border border-transparent outline-none transition-all duration-150;
+  }
+
+  .search-field:hover {
+    @apply bg-white dark:bg-[#3c4043];
+  }
+
+  .search-field:focus {
+    @apply bg-surface dark:bg-surface-subtle-dark border-transparent shadow-search;
+  }
+
+  /* 平台筛选：未选中是描边，选中是浅蓝底深蓝字 */
+  .chip {
+    @apply inline-flex items-center gap-1.5 h-8 px-3 rounded-full text-meta whitespace-nowrap;
+    @apply border border-hairline dark:border-hairline-dark;
+    @apply text-ink-secondary dark:text-ink-dark-secondary;
+    @apply bg-transparent transition-colors duration-150;
+  }
+
+  .chip:hover {
+    @apply bg-surface-subtle dark:bg-surface-subtle-dark;
+  }
+
+  .chip[data-active='true'] {
+    @apply border-transparent bg-primary-container text-primary-strong;
+    @apply dark:bg-primary-container-dark dark:text-primary-dark;
+  }
+
+  /* 资讯条目：没有边框圆角，只有一条细线 */
+  /* 圆角会让 divide-y 的分隔线在两端翘起来，所以这里必须保持直角 */
+  .row {
+    @apply block py-4 -mx-3 px-3 transition-colors duration-100;
+  }
+
+  .row:hover {
+    @apply bg-surface-subtle dark:bg-surface-subtle-dark;
+  }
+
+  .icon-button {
+    @apply inline-flex items-center justify-center w-10 h-10 rounded-full;
+    @apply text-ink-secondary dark:text-ink-dark-secondary;
+    @apply hover:bg-surface-subtle dark:hover:bg-surface-subtle-dark transition-colors;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-hairline dark:bg-hairline-dark rounded-full;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-ink-muted;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}

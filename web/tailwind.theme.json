@@ -1,0 +1,81 @@
+{
+  "theme": {
+    "extend": {
+      "colors": {
+        "primary": "#1a73e8",
+        "primary-hover": "#1765cc",
+        "primary-dark": "#8ab4f8",
+        "on-primary": "#ffffff",
+        "primary-container": "#e8f0fe",
+        "primary-strong": "#1967d2",
+        "primary-container-dark": "#1e2e45",
+        "surface": "#ffffff",
+        "surface-dark": "#202124",
+        "surface-subtle": "#f8f9fa",
+        "surface-subtle-dark": "#303134",
+        "ink": "#202124",
+        "ink-secondary": "#5f6368",
+        "ink-muted": "#80868b",
+        "ink-dark": "#e8eaed",
+        "ink-dark-secondary": "#9aa0a6",
+        "hairline": "#dadce0",
+        "hairline-dark": "#3c4043"
+      },
+      "fontFamily": {
+        "wordmark": [
+          "Roboto, 'Noto Sans SC', 'PingFang SC', sans-serif"
+        ],
+        "headline": [
+          "Roboto, 'Noto Sans SC', 'PingFang SC', sans-serif"
+        ],
+        "title": [
+          "Roboto, 'Noto Sans SC', 'PingFang SC', sans-serif"
+        ],
+        "meta": [
+          "Roboto, 'Noto Sans SC', 'PingFang SC', sans-serif"
+        ]
+      },
+      "fontSize": {
+        "wordmark": [
+          "21px",
+          {
+            "letterSpacing": "-0.02em",
+            "fontWeight": "500"
+          }
+        ],
+        "headline": [
+          "17px",
+          {
+            "fontWeight": "400"
+          }
+        ],
+        "title": [
+          "15px",
+          {
+            "fontWeight": "500"
+          }
+        ],
+        "meta": [
+          "13px",
+          {
+            "fontWeight": "400"
+          }
+        ]
+      },
+      "borderRadius": {
+        "sm": "4px",
+        "md": "8px",
+        "lg": "12px",
+        "xl": "28px",
+        "full": "9999px"
+      },
+      "spacing": {
+        "xs": "4px",
+        "sm": "8px",
+        "md": "16px",
+        "lg": "24px",
+        "xl": "32px"
+      }
+    }
+  }
+}
