@@ -1,4 +1,6 @@
 name: Update AI News Snapshot
+# 迁移说明：本仓库 2026-11-18 从 fork 重建为独立仓库，
+# 原 fork 因 GitHub 对 fork 默认禁用 schedule 而从未触发过定时任务。
 
 on:
   workflow_dispatch:
