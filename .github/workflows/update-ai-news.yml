@@ -10,7 +10,7 @@ on:
       - "data/**"
   schedule:
     # 避开整点：GitHub 的 cron 在 0 分最拥堵，整点触发经常被延迟或丢弃
-    - cron: "17 */2 * * *"
+    - cron: "17 */4 * * *"
 
 permissions:
   contents: read
